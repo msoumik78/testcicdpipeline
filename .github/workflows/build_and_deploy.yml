@@ -26,7 +26,7 @@ jobs:
     - name: Run tests
       run: |
         pip install pytest
-        pytest || true
+        pytest
 
     - name: Deploy to Ubuntu Server (Password SSH)
       env:
