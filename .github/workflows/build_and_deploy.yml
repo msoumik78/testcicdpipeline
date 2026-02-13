@@ -27,3 +27,28 @@ jobs:
       run: |
         pip install pytest
         pytest || true
+
+   - name: Deploy to Ubuntu Server (Password SSH)
+      env:
+        SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        SERVER_USER: ${{ secrets.SERVER_USER }}
+        SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+      run: |
+        sshpass -p "$SERVER_PASSWORD" ssh \
+          -o StrictHostKeyChecking=no \
+          $SERVER_USER@$SERVER_HOST << 'EOF'
+          
+          set -e
+
+          cd /root/projects/testcicdpipeline
+
+          echo "Pulling latest code..."
+          git pull origin main
+
+          echo "Activating virtual environment..."
+          source venv/bin/activate
+
+          echo "Installing dependencies..."
+          pip install -r requirements.txt        
+        EOF
+  
