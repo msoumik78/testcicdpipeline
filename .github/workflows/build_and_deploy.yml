@@ -29,11 +29,11 @@ jobs:
         pytest || true
 
     - name: Deploy to Ubuntu Server (Password SSH)
-        env:
+      env:
           SERVER_HOST: ${{ secrets.SERVER_HOST }}
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
-        run: |
+      run: |
           sshpass -p "$SERVER_PASSWORD" ssh \
             -o StrictHostKeyChecking=no \
             $SERVER_USER@$SERVER_HOST << 'EOF'
