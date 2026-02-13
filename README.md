@@ -41,3 +41,32 @@ Run the application using [`uvicorn`](https://uvicorn.dev/):
 ```bash
 uvicorn app.main:app
 ```
+
+### Create the service file in server
+
+Run the application using [`uvicorn`](https://uvicorn.dev/):
+```bash
+    [Unit]
+    Description=FastAPI Application
+    After=network.target
+
+    [Service]
+    User=root
+    Group=root
+    WorkingDirectory=/root/projects/testcicdpipeline
+    Environment="PATH=/root/projects/testcicdpipeline/venv/bin"
+    ExecStart=/root/projects/testcicdpipeline/venv/bin/uvicorn app.main:app
+    Restart=always
+    RestartSec=5
+
+    [Install]
+    WantedBy=multi-user.target
+```
+
+
+### Create the service definition in server and start server
+```bash
+systemctl daemon-reload
+systemctl enable testcicdpipeline
+systemctl start testcicdpipeline
+```

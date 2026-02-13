@@ -1,0 +1,15 @@
+[Unit]
+Description=FastAPI Application
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/root/projects/testcicdpipeline
+Environment="PATH=/root/projects/testcicdpipeline/venv/bin"
+ExecStart=/root/projects/testcicdpipeline/venv/bin/uvicorn app.main:app
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
